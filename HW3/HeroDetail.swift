@@ -27,6 +27,12 @@ struct HeroDetail: View {
                                 RoundedRectangle(cornerRadius: 30)
                                     .strokeBorder(Color.black, lineWidth: 2)
                             )
+                            .shadow(
+                                color: Color.black.opacity(0.5),
+                                radius: 3,
+                                x: -1,
+                                y: 3
+                            )
                         AsyncImage(url: hero.image) { image in
                             image
                                 .resizable()
@@ -36,42 +42,34 @@ struct HeroDetail: View {
                             ProgressView()
                         }
                         .frame(width: 360, height: 250)
-                        Image(.nameBanner)
-                            .resizable()
+                        BannerText(hero.name)
                             .frame(width: 360, height: 90)
-                            .offset(y: 120)
-                        Text(hero.name)
                             .font(.largeTitle)
                             .bold()
-                            .offset(y: 115)
+                            .offset(y: 120)
                     }
                     .padding()
-                    
+
                     Color.clear.frame(height: 10)
-                    ZStack {
-                        
-                        VStack(alignment: .leading) {
-                            Text(hero.introTitle)
-                                .font(.title)
-                                .bold()
-                                .foregroundStyle(.yellow)
-                            Text(hero.intro)
-                                .font(.headline)
-                        }
-                        .padding()
-                        .frame(width: 360)
-                        .background {
-                            RoundedRectangle(cornerRadius: 20)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .strokeBorder(Color.black, lineWidth: 2)
-                                )
-                                .foregroundStyle(.gray)
-                        }
+                    VStack(alignment: .leading) {
+                        Text(hero.introTitle)
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.yellow)
+                        Text(hero.intro)
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                    }
+                    .padding()
+                    .frame(width: 360)
+                    .background {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(.black.opacity(0.8))
+                            .strokeBorder(Color.black, lineWidth: 2)
                     }
                     .padding(.horizontal, 30)
                     Text(hero.deepIntro)
-                        .font(.largeTitle)
+                        .font(.title2)
                     Spacer()
                 }
             }

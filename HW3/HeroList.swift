@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let columns = Array(repeating: GridItem(), count: 3)
+let heroGridColumns = Array(repeating: GridItem(), count: 2)
 
 struct HeroList: View {
     var body: some View {
@@ -18,62 +18,54 @@ struct HeroList: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 400)
                     .ignoresSafeArea()
-                    ScrollView {
-                        Text("Heroes")
-                            .font(.largeTitle)
-                            .bold()
-                        LazyVGrid(columns: columns, spacing: 5) {
-                            ForEach(heros) { hero in
-                                NavigationLink {
-                                    HeroDetail(hero: hero)
-                                } label: {
-                                    ZStack {
-                                        AsyncImage(url: hero.image) { image in
-                                            image
-                                                .resizable()
-                                                .offset(hero.imageOffset)
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 100, height: 150)
-                                                .scaleEffect(0.95, anchor: .bottom)
-                                                .clipShape(Rectangle())
-                                                .contentShape(Rectangle())
-                                        } placeholder: {
-                                            ProgressView()
-                                        }
-                                        .offset(y: -30)//寫在外面有向上凸出背景的效果
-                                        .background {
-                                            Color.gray
-                                                .clipShape(
-                                                    RoundedRectangle(
-                                                        cornerRadius: 20
-                                                    )
-                                                )
-                                                .overlay(
-                                                    RoundedRectangle(
-                                                        cornerRadius: 20
-                                                    )
-                                                    .strokeBorder(
-                                                        Color.black,
-                                                        lineWidth: 2
-                                                    )
-                                                )
-                                        }
-                                        ZStack {
-                                            Image(.nameBanner)
-                                                .resizable()
-                                                .frame(width: 120, height: 50)
-                                                .offset(y: 50)
-                                            Text(hero.name)
-                                                .font(.default)
-                                                .foregroundStyle(.black)
-                                                .offset(y: 48)
-                                        }
+                ScrollView {
+                    Color.clear.frame(height: 50)
+                    BannerText("英雄")
+                        .frame(width: 300, height: 80)
+                        .font(.largeTitle)
+                        .bold()
+                    LazyVGrid(columns: heroGridColumns, spacing: 5) {
+                        ForEach(heros) { hero in
+                            NavigationLink {
+                                HeroDetail(hero: hero)
+                            } label: {
+                                ZStack {
+                                    AsyncImage(url: hero.image) { image in
+                                        image
+                                            .resizable()
+                                            .offset(hero.imageOffset)
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 150, height: 180)
+                                            .scaleEffect(0.9, anchor: .bottom)
+                                            .clipShape(Rectangle())
+                                            .contentShape(Rectangle())
+                                    } placeholder: {
+                                        ProgressView()
                                     }
+                                    .offset(y: -35)  //寫在外面有向上凸出背景的效果
+                                    .background {
+                                            RoundedRectangle(
+                                                cornerRadius: 20
+                                            )
+                                            .fill(.black.opacity(0.7))
+                                            .strokeBorder(
+                                                Color.black,
+                                                lineWidth: 2
+                                            )
+                                    }
+                                    BannerText(hero.name)
+                                        .font(.headline)
+                                        .foregroundStyle(.black)
+                                        .frame(width: 170, height: 60)
+                                        .offset(y: 70)
                                 }
                             }
                         }
-                        Color.clear.frame(height: 1000)
                     }
+                    Color.clear.frame(height: 1000)
+                }
+                .ignoresSafeArea()
+                .padding(.horizontal, 30)
             }
         }
     }

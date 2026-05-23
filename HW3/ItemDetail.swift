@@ -15,25 +15,43 @@ struct ItemDetail: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
-            VStack {
-                AsyncImage(url: item.image) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .border(.black, width: 2)
-                        .background(.gray)
+            ScrollView {
+                VStack {
+                    ZStack {
+                        RoundedRectangle(
+                            cornerRadius: 20
+                        )
+                        .fill(.black.opacity(0.7))
+                        .strokeBorder(
+                            Color.black,
+                            lineWidth: 2
+                        )
+                        .overlay {
+                            AsyncImage(url: item.image) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                        .padding(.horizontal)
+                        BannerText(item.name)
+                            .font(.title)
+                            .frame(width: 400, height: 80)
+                            .offset(y: 80)
+                    }
+                    .frame(height: 140)
+                    Color.clear.frame(height: 40)
+                    Text(item.intro)
                         .padding()
-                } placeholder: {
-                    ProgressView()
+                    Text(item.deepIntro)
+                        .font(.title2)
+                    Spacer()
                 }
-
-                Text(item.intro)
-                    .padding()
-                Text("deep intro")
-                    .font(.largeTitle)
-                Spacer()
             }
-
+            .padding()
         }
     }
 }

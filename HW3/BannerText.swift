@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct BannerText: View {
+    let text: String
+    
+    init(_ text: String) {
+        self.text = text
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Image(.nameBanner)
+                .resizable()
+            Text(text)
+        }
     }
 }
 
 #Preview {
-    BannerText()
+    BannerText("Hi")
 }

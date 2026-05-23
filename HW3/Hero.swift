@@ -25,10 +25,10 @@ let heros = [
                 "https://backpackbrawl.wiki.gg/images/thumb/Ronan01-skin01.png/300px-Ronan01-skin01.png?2a1043"
         ),
         imageOffset: .zero, 
-        introTitle: "Sword, Board, and Thorns",
+        introTitle: "劍、盾與荊棘",
         intro:
-            "Ronan feels the best offense is a good defense.",
-        deepIntro: ""
+            "Ronan 認為最好的進攻就是防守。",
+        deepIntro: "剛接觸這個角色時，因為大部分的道具都還沒有解鎖，你只要盡量把物品都升上去就好了。我的建議是等級低的時候，盡量堆越多荊棘效果越好，等級高了以後，可以開始走盾流，對面完全打不動。"
     ),
     Hero(
         name: "Buzz",

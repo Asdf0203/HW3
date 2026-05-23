@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let itemGridColumns = Array(repeating: GridItem(), count: 4)
+
 struct ItemList: View {
     var body: some View {
         NavigationStack {
@@ -14,12 +16,15 @@ struct ItemList: View {
                 Image(.woodenBackGround)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .frame(width: 400)
                     .ignoresSafeArea()
                 ScrollView {
-                    Text("items")
+                    Color.clear.frame(height:50)
+                    BannerText("物品")
+                        .frame(width: 300, height: 80)
                         .font(.largeTitle)
                         .bold()
-                    LazyVGrid(columns: columns, spacing: 5) {
+                    LazyVGrid(columns: itemGridColumns, spacing: 10) {
                         ForEach(items) { item in
                             NavigationLink {
                                 ItemDetail(item: item)
@@ -29,15 +34,14 @@ struct ItemList: View {
                                         image
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 150)
-                                            .scaleEffect(0.8, anchor: .bottom)
-                                            .padding()
+                                            .offset(item.imageOffset)
+                                            .frame(width: 80, height: 100)
+                                            .scaleEffect(0.6, anchor: .bottom)
                                             .clipShape(Rectangle())
                                             .contentShape(Rectangle())
                                     } placeholder: {
                                         ProgressView()
                                     }
-                                    .offset(y: -30)  //寫在外面有向上凸出背景的效果
                                     .background {
                                         Color.gray
                                             .clipShape(
@@ -56,12 +60,13 @@ struct ItemList: View {
                                             )
                                     }
                                 }
-
                             }
                         }
                     }
                     Color.clear.frame(height: 1000)
                 }
+                .ignoresSafeArea()
+                .padding(.horizontal, 30)
             }
         }
     }
